@@ -3,23 +3,19 @@ import tkinter as tk
 from tkinter import *
 from tkinter.ttk import Button
 from PIL import ImageTk, Image
-#from selenium.webdriver.chrome.options import Options
-#from selenium.webdriver.common.by import By
-#from selenium.webdriver.common.keys import Keys
 import time
 
-temp = "!" ### TO DO:  resize windows so you dont need to scroll
-raceName = "" ###ADD QUIT BUTTON TO CONSTRUCTORS AND DRIVERS AND RACE REULTS WINDOWS
+temp = "!"
+raceName = ""
 def quit():
     window.destroy()  #
 
-def getPageID(passedName):## change quit to .withdraw(need to figure out why this breaks browser.get) and call .quit from this func
-    global raceName #remove quit from lambda
+def getPageID(passedName):
+    global raceName
     global temp
-   # window.destroy() # window.remove() or window.quit()
     raceName = passedName
     temp = raceDic[passedName]
-    raceResults() #needs to be called after browser.get
+    raceResults()
 
 
 def constructors():
@@ -114,7 +110,7 @@ def raceResults():
     global list2
     global raceName
     browser.get(
-        temp)  ##move to getPageID or create seperate func so this doesnt run if constructor results are seleceted
+        temp)
     # time.sleep(.5)
     Name1 = browser.find_element('xpath',
                                  '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[1]/td[2]/section/div/h2/span/span/span[2]')
@@ -346,9 +342,6 @@ class Teams:
         self.teamPoints = teamPoints
 
 
-## either make array/ dictionary for each race and grab data at runtime OR, make one single array/ dictionary and populate after taking user input
-## ex, "What race do you want to see?" User enters Brazil, then the program goes to espn, fills the single dictionary/ array with that data and returns it
-
 if __name__ == '__main__':
 
     path = r'/Users/williamcassel/Desktop/CS_11_stuff/chromedriver'
@@ -570,7 +563,7 @@ if __name__ == '__main__':
 
     briImage = Image.open("Britian.png")
     briImageR = briImage.resize((75, 75))
-    briImg = ImageTk.PhotoImage(briImageR) #austrian, fren, hung
+    briImg = ImageTk.PhotoImage(briImageR)
 
     austImage = Image.open("Austrian2.png")
     austImageR = austImage.resize((75, 75))
@@ -582,7 +575,7 @@ if __name__ == '__main__':
 
     hunImage = Image.open("Hungarian.png")
     hunImageR = hunImage.resize((75, 75))
-    hunImg = ImageTk.PhotoImage(hunImageR) #bel, dutch, ital
+    hunImg = ImageTk.PhotoImage(hunImageR)
 
     belImage = Image.open("Belgian.png")
     belImageR = belImage.resize((75, 75))
@@ -594,7 +587,7 @@ if __name__ == '__main__':
 
     italImage = Image.open("Italian.png")
     italImageR = italImage.resize((75, 75))
-    italImg = ImageTk.PhotoImage(italImageR)#rus, sing, japan
+    italImg = ImageTk.PhotoImage(italImageR)
 
     rusImage = Image.open("Russian2.png")
     rusImageR = rusImage.resize((75, 75))
@@ -606,7 +599,7 @@ if __name__ == '__main__':
 
     jaImage = Image.open("Japan.jpg")
     jaImageR = jaImage.resize((75, 75))
-    jaImg = ImageTk.PhotoImage(jaImageR) #us, mex, bra
+    jaImg = ImageTk.PhotoImage(jaImageR)
 
     usImage = Image.open("US.png")
     usImageR = usImage.resize((75, 75))
@@ -618,7 +611,7 @@ if __name__ == '__main__':
 
     braImage = Image.open("Brazil.png")
     braImageR = braImage.resize((75, 75))
-    braImg = ImageTk.PhotoImage(braImageR) #brit dutch us
+    braImg = ImageTk.PhotoImage(braImageR)
 
     teamImage = Image.open("TeamGraphic.jpg")
     teamImageR = teamImage.resize((75, 75))
@@ -637,10 +630,6 @@ if __name__ == '__main__':
     BarcButton = tk.Button(window, text = "Barcelona", image=barcImg, compound=TOP, highlightthickness=0, bd=0, command=lambda: [quit(), getPageID("Barcelona")])
     BarcButton.grid(row=1, column=0)
 
-
-    #img = ImageTk.PhotoImage(Image.open(path))
-    #originalImg = Image.open(currentphotofolderPath + file)
-   # monacoImage = ImageTk.PhotoImage(Image.open('monaco.jpg')) #works
     monacoImage = Image.open("monaco.jpg")
     MonImgR = monacoImage.resize((75, 75))
     MonImg = ImageTk.PhotoImage(MonImgR)
@@ -649,7 +638,6 @@ if __name__ == '__main__':
     abuImageR = abuImage.resize((75, 75))
     abuImg = ImageTk.PhotoImage(abuImageR)
 
-    #MonButton = Button(window, text="Monaco", command=lambda: [getPageID("Monaco"), quit()]) #image="monaco.jpeg", compound=TOP
     MonButton = tk.Button(window, text="Monaco", image=MonImg, compound=TOP, highlightthickness=0, bd=0, command=lambda: [quit(), getPageID("Monaco")])
     MonButton.grid(row=1, column =1)
 
@@ -685,8 +673,7 @@ if __name__ == '__main__':
     BraButton.grid(row=4, column=1)
     AbuButton = tk.Button(window, text="Abu Dhabi", image=abuImg, compound=TOP, highlightthickness=0, bd=0, command=lambda: [quit(), getPageID("Abu Dhabi")])
     AbuButton.grid(row=4, column=2)
-    #quitButton = Button(window, text="Quit", command=quit)
-    #quitButton.grid(row=4, column=4)
+
     TeamButton = tk.Button(window, text="Drivers", image=teamImg, compound=TOP, highlightthickness=0, bd=0,
                           command=lambda: [quit(), driverStandings()])
     TeamButton.grid(row=4, column=3)
@@ -696,138 +683,3 @@ if __name__ == '__main__':
     Team2Button.grid(row=4, column=4)
 
     window.mainloop()
-    """ 
-    browser.get(temp) ##move to getPageID or create seperate func so this doesnt run if constructor results are seleceted
-   # time.sleep(.5)
-    Name1 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[1]/td[2]/section/div/h2/span/span/span[2]')
-    Name2 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[2]/td[2]/section/div/h2/span/span/span[2]')
-    Name3 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[3]/td[2]/section/div/h2/span/span/span[2]')
-    Name4 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[4]/td[2]/section/div/h2/span/span/span[2]')
-    Name5 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[5]/td[2]/section/div/h2/span/span/span[2]')
-    Name6 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[6]/td[2]/section/div/h2/span/span/span[2]')
-    Name7 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[7]/td[2]/section/div/h2/span/span/span[2]')
-    Name8 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[8]/td[2]/section/div/h2/span/span/span[2]')
-    Name9 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[9]/td[2]/section/div/h2/span/span/span[2]')
-    Name10 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[10]/td[2]/section/div/h2/span/span/span[2]')
-    Name11 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[11]/td[2]/section/div/h2/span/span/span[2]')
-    Name12 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[12]/td[2]/section/div/h2/span/span/span[2]')
-    Name13 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[13]/td[2]/section/div/h2/span/span/span[2]')
-    Name14 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[14]/td[2]/section/div/h2/span/span/span[2]')
-    Name15 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[15]/td[2]/section/div/h2/span/span/span[2]')
-    Name16 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[16]/td[2]/section/div/h2/span/span/span[2]')
-    Name17 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[17]/td[2]/section/div/h2/span/span/span[2]')
-    Name18 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[18]/td[2]/section/div/h2/span/span/span[2]')
-    Name19 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[19]/td[2]/section/div/h2/span/span/span[2]')
-   # try: #MUST FIX
-    Name20 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[20]/td[2]/section/div/h2/span/span/span[2]')
-    #except():
-     #   pass #print("No 20th driver for this race\n")
-
-   # print(Name19.text)
-    Team1 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[1]/td[3]')
-    Team2 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[2]/td[3]')
-    Team3 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[3]/td[3]')
-    Team4 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[4]/td[3]')
-    Team5 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[5]/td[3]')
-    Team6 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[6]/td[3]')
-    Team7 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[7]/td[3]')
-    Team8 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[8]/td[3]')
-    Team9 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[9]/td[3]')
-    Team10 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[10]/td[3]')
-    Team11 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[11]/td[3]')
-    Team12 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[12]/td[3]')
-    Team13 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[13]/td[3]')
-    Team14 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[14]/td[3]')
-    Team15 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[15]/td[3]')
-    Team16 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[16]/td[3]')
-    Team17 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[17]/td[3]')
-    Team18 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[18]/td[3]')
-    Team19 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[19]/td[3]')
-    Team20 = browser.find_element('xpath', '/html/body/div[1]/div/div/div/main/div[2]/div/div[5]/div/div/div[1]/section/div/div/div/div/div[2]/table/tbody/tr[20]/td[3]')
-   # print(Team3.text)
-
-    P1 = Races('1', Name1.text, Team1.text)
-    P2 = Races('2', Name2.text, Team2.text)
-    P3 = Races('3', Name3.text, Team3.text)
-    P4 = Races('4', Name4.text, Team4.text)
-    P5 = Races('5', Name5.text, Team5.text)
-    P6 = Races('6', Name6.text, Team6.text)
-    P7 = Races('7', Name7.text, Team7.text)
-    P8 = Races('8', Name8.text, Team8.text)
-    P9 = Races('9', Name9.text, Team9.text)
-    P10 = Races('10', Name10.text, Team10.text)
-    P11 = Races('11', Name11.text, Team11.text)
-    P12 = Races('12', Name12.text, Team12.text)
-    P13 = Races('13', Name13.text, Team13.text)
-    P14 = Races('14', Name14.text, Team14.text)
-    P15 = Races('15', Name15.text, Team15.text)
-    P16 = Races('16', Name16.text, Team16.text)
-    P17 = Races('17', Name17.text, Team17.text)
-    P18 = Races('18', Name18.text, Team18.text)
-    P19 = Races('19', Name19.text, Team19.text)
-    P20 = Races('20', Name20.text, Team20.text)
-
-    list2 = []
-    list2.append(P1)
-    list2.append(P2)
-    list2.append(P3)
-    list2.append(P4)
-    list2.append(P5)
-    list2.append(P6)
-    list2.append(P7)
-    list2.append(P8)
-    list2.append(P9)
-    list2.append(P10)
-    list2.append(P11)
-    list2.append(P12)
-    list2.append(P13)
-    list2.append(P14)
-    list2.append(P15)
-    list2.append(P16)
-    list2.append(P17)
-    list2.append(P18)
-    list2.append(P19)
-    list2.append(P20)
-    browser.close()
-    #print(list2)
-    print("Race results for " + raceName + " Grand Prix\n")
-    print("Pos\tName\t\tTeam")
-    j = 1
-    while j <= 20:
-        for obj in list2:
-            print(obj.position, obj.driverName, "\t", obj.team)
-            j += 1
-    #constructors()
-"""
-#window.deiconify()
-   # quitButton = Button(window, text="Quit", command=quit)
-    #quitButton.grid(row=5, column=6, sticky=E)
-    #browser.close()
-    #constructors()
-## Finding Elements
-
-#google_text = driver.find_element(By.CLASS_NAME, "MV3Tnb").text
-
-#print(google_text)
-
-#input_box = driver.find_element(By.NAME, "q")
-
-## Typing and Clicking
-
-#input_box.send_keys("Hi")
-
-#input_box.send_keys(Keys.ENTER)
-
-#home_link = driver.find_element(By.ID, "logo")
-
-#home_link.click()
-
-## Selectors
-
-#tag_search = driver.find_element(By.TAG_NAME, "a").text
-
-#print(tag_search)
-
-#link_text = driver.find_element(By.LINK_TEXT, "About").text
-
-#print(link_text)
